@@ -1,0 +1,86 @@
+{
+  "order": ["concept", "menu", "gallery", "staff", "info"],
+
+  "hero": {
+    "image": "images/hero.jpg",
+    "eyebrow": "NAIL SALON LUEUR",
+    "title": "指先から**やわらかな光**を",
+    "tagline": "your everyday luxury",
+    "lead": "大人の女性の毎日に、そっと寄り添う上質を\n爪先からはじまる、あなただけの心地よさ",
+    "btn1": "ご予約はこちら",
+    "btn2": "サロンについて"
+  },
+
+  "concept": {
+    "image": "images/concept.jpg",
+    "eyebrow": "CONCEPT",
+    "heading": "肩の力をぬいて、**わたしを整える**時間",
+    "p1": "Lueur（リュエール）はフランス語で「やわらかな光」。\n特別な日のためではなく、いつもの毎日をすこし丁寧にするためのネイルサロンです。",
+    "p2": "流行を追いすぎず、あなたの手にいちばん似合う色とかたちを、一緒に見つけます。\n落ち着いた個室空間で、施術の時間そのものを楽しんでください。",
+    "pills": ["完全予約制", "個室サロン", "パラジェル取扱", "ハンド／フット"]
+  },
+
+  "menu": {
+    "eyebrow": "MENU",
+    "heading": "メニュー・料金",
+    "lead": "すべてオフ・ケア込み。表示価格は税込です。",
+    "items": [
+      { "image": "images/menu1.jpg", "name": "ワンカラー", "sub": "シンプルにまとめたい方へ", "price": "¥6,600", "badge": "定番", "show": true },
+      { "image": "images/menu2.jpg", "name": "ニュアンス／くすみカラー", "sub": "今どきの磨りガラス・マグネット", "price": "¥8,800", "badge": "人気No.1", "show": true },
+      { "image": "images/menu3.jpg", "name": "フレンチ・グラデーション", "sub": "上品で飽きのこない王道", "price": "¥7,700", "badge": "", "show": true },
+      { "image": "images/menu4.jpg", "name": "フットネイル", "sub": "サンダルの季節に、足元も美しく", "price": "¥8,800", "badge": "", "show": true }
+    ]
+  },
+
+  "gallery": {
+    "eyebrow": "GALLERY",
+    "heading": "デザインギャラリー",
+    "lead": "季節のデザイン、定番アート、シーズン限定など。\nお好みのイメージをご相談ください。",
+    "images": [
+      "images/gallery1.jpg",
+      "images/gallery2.jpg",
+      "images/gallery3.jpg",
+      "images/gallery4.jpg",
+      "images/gallery5.jpg",
+      "images/gallery6.jpg"
+    ]
+  },
+
+  "staff": {
+    "eyebrow": "STAFF",
+    "heading": "ネイリスト紹介",
+    "image": "images/staff.jpg",
+    "name": "水科 澪 ／ Mio Mizushina",
+    "role": "オーナーネイリスト",
+    "p1": "ネイリスト歴12年。ナチュラルで肌なじみの良いデザインを得意としています。",
+    "p2": "「手元を見るたびに、少し気分が上がる」——そんな時間をお届けできるよう、丁寧なカウンセリングとケアを大切にしています。"
+  },
+
+  "info": {
+    "eyebrow": "ACCESS",
+    "heading": "アクセス・営業情報",
+    "hours": "10:00 – 19:00（最終受付 18:00）",
+    "closed": "火曜・第2水曜",
+    "address": "東京都世田谷区奥沢0-0-0 リュエールビル 2F",
+    "mapQuery": "東京都世田谷区奥沢 自由が丘駅",
+    "access": "東急東横線・大井町線「自由が丘駅」より徒歩5分",
+    "parking": "近隣コインパーキングをご利用ください",
+    "pay": "現金・各種クレジット・QRコード決済"
+  },
+
+  "reserve": {
+    "hotpepper": "https://beauty.hotpepper.jp/",
+    "line": "https://line.me/",
+    "tel": "03-1234-5678"
+  },
+
+  "cta": {
+    "heading": "ご予約・お問い合わせ",
+    "text": "ご予約はネット予約・LINE・お電話で承っております。当日のご予約はお電話がスムーズです。",
+    "btn": "ネットで予約する"
+  },
+
+  "footer": {
+    "address": "ネイルサロン Lueur（リュエール）／ 東京都世田谷区奥沢0-0-0 リュエールビル 2F"
+  }
+}

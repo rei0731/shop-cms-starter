@@ -1,0 +1,7 @@
+name = "shop-cms-starter"             # Pages のプロジェクト名（<name>.pages.dev になる）
+pages_build_output_dir = "public"     # 配信するファイルの置き場所
+compatibility_date = "2026-07-01"
+
+[[kv_namespaces]]
+binding = "CMS"                       # functions 内の env.CMS と一致させる
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"   # npx wrangler kv namespace create CMS の出力を貼る

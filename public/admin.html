@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Lueur 管理画面</title>
+<style>
+  :root{--pink:#B18E8B;--ink:#4a4038;--soft:#8C8074;--line:#e5ddd4;--base:#faf7f3;--ok:#3a8a5a;--bad:#c0503f}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Hiragino Sans','Yu Gothic UI',sans-serif;color:var(--ink);
+    background:var(--base);line-height:1.7;font-size:15px}
+  h1{font-size:1.15rem;margin:0}
+  .muted{color:var(--soft);font-size:.82rem}
+  button{font-family:inherit;cursor:pointer}
+  .btn{background:var(--pink);color:#fff;border:0;border-radius:6px;padding:10px 20px;font-size:.9rem}
+  .btn.sub{background:#fff;color:var(--ink);border:1px solid var(--line)}
+  .btn:disabled{opacity:.5;cursor:default}
+
+  /* login */
+  #login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:34px;max-width:360px;width:100%;
+    box-shadow:0 10px 40px -24px rgba(74,64,56,.5)}
+  .logo{font-family:Georgia,serif;font-size:1.8rem;letter-spacing:.24em;text-align:center;color:var(--pink);
+    margin:0 0 4px;padding-left:.24em}
+  .card .muted{text-align:center;margin-bottom:22px}
+  input,textarea{width:100%;font-family:inherit;font-size:.92rem;color:var(--ink);
+    border:1px solid var(--line);border-radius:6px;padding:9px 11px;background:#fff}
+  textarea{resize:vertical;min-height:70px;line-height:1.6}
+  .pw-row{display:flex;gap:6px}
+  .pw-row .eye{border:1px solid var(--line);background:#fff;border-radius:6px;padding:0 12px}
+  .msg{font-size:.82rem;margin-top:12px;min-height:1.2em}
+  .msg.ok{color:var(--ok)} .msg.bad{color:var(--bad)}
+
+  /* app */
+  #app{display:none;max-width:760px;margin:0 auto;padding:0 16px 120px}
+  header.top{position:sticky;top:0;background:rgba(250,247,243,.95);backdrop-filter:blur(6px);
+    display:flex;align-items:center;justify-content:space-between;padding:14px 4px;border-bottom:1px solid var(--line);z-index:5}
+  header.top .r{display:flex;gap:8px;align-items:center}
+  nav.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0}
+  nav.tabs button{background:#fff;border:1px solid var(--line);border-radius:20px;padding:7px 15px;font-size:.84rem;color:var(--soft)}
+  nav.tabs button.on{background:var(--pink);color:#fff;border-color:var(--pink)}
+  .panel{display:none;background:#fff;border:1px solid var(--line);border-radius:12px;padding:22px}
+  .panel.on{display:block}
+  .panel h2{font-size:1rem;margin:0 0 4px}
+  .field{margin:16px 0}
+  .field label{display:block;font-size:.82rem;color:var(--soft);margin-bottom:5px}
+  .imgfield{display:flex;gap:12px;align-items:center}
+  .imgfield img{width:76px;height:76px;object-fit:cover;border-radius:8px;border:1px solid var(--line);background:#f3ede6}
+  .imgfield .u{flex:1}
+  .item{border:1px solid var(--line);border-radius:10px;padding:14px;margin:12px 0;background:#fdfbf9}
+  .item .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .chk{display:flex;align-items:center;gap:7px;font-size:.85rem;color:var(--soft)}
+  .orderlist{list-style:none;padding:0;margin:0}
+  .orderlist li{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--line);
+    border-radius:8px;padding:10px 14px;margin:8px 0;background:#fdfbf9}
+  .orderlist .mv{display:flex;gap:6px}
+  .orderlist .mv button{border:1px solid var(--line);background:#fff;border-radius:6px;width:34px;height:32px}
+  .savebar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);
+    padding:12px 16px;display:flex;justify-content:center;gap:12px;align-items:center;z-index:8}
+  .savebar .msg{margin:0}
+  .hint{font-size:.78rem;color:var(--soft);background:#f4efe9;border-radius:8px;padding:10px 12px;margin-top:6px}
+
+  /* image picker modal */
+  .modal{position:fixed;inset:0;background:rgba(50,42,38,.55);display:none;align-items:center;justify-content:center;z-index:20;padding:20px}
+  .modal.on{display:flex}
+  .modal .box{background:#fff;border-radius:12px;max-width:640px;width:100%;max-height:80vh;overflow:auto;padding:20px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:10px;margin-top:14px}
+  .grid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;border:2px solid transparent;cursor:pointer}
+  .grid img:hover{border-color:var(--pink)}
+</style>
+</head>
+<body>
+
+<!-- ===== login ===== -->
+<div id="login">
+  <form class="card" id="loginForm">
+    <p class="logo">Lueur</p>
+    <p class="muted">管理画面 ログイン</p>
+    <div class="field">
+      <label>パスワード</label>
+      <div class="pw-row">
+        <input type="password" id="pw" autocomplete="current-password" required>
+        <button type="button" class="eye" id="eye">👁</button>
+      </div>
+    </div>
+    <button class="btn" style="width:100%" type="submit">ログイン</button>
+    <p class="msg" id="loginMsg"></p>
+  </form>
+</div>
+
+<!-- ===== app ===== -->
+<div id="app">
+  <header class="top">
+    <h1>Lueur <span class="muted">管理画面</span></h1>
+    <div class="r">
+      <a class="muted" href="index.html" target="_blank" rel="noopener">サイトを見る ↗</a>
+      <button class="btn sub" id="logout">ログアウト</button>
+    </div>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button data-tab="hero" class="on">トップ</button>
+    <button data-tab="order">並び替え</button>
+    <button data-tab="concept">コンセプト</button>
+    <button data-tab="menu">メニュー</button>
+    <button data-tab="gallery">ギャラリー</button>
+    <button data-tab="staff">スタッフ</button>
+    <button data-tab="info">アクセス</button>
+    <button data-tab="reserve">予約</button>
+    <button data-tab="settings">設定</button>
+  </nav>
+
+  <!-- hero -->
+  <section class="panel on" data-panel="hero">
+    <h2>トップ（ファーストビュー）</h2>
+    <div class="field"><label>背景写真</label><div class="imgfield" data-img="hero.image"></div></div>
+    <div class="field"><label>英字ラベル（上部の小さな文字）</label><input data-bind="hero.eyebrow"></div>
+    <div class="field"><label>キャッチコピー（**で囲むと強調色。改行可）</label><textarea data-bind="hero.title"></textarea></div>
+    <div class="field"><label>英字タグライン</label><input data-bind="hero.tagline"></div>
+    <div class="field"><label>説明文</label><textarea data-bind="hero.lead"></textarea></div>
+    <div class="row2">
+      <div class="field"><label>ボタン1の文字</label><input data-bind="hero.btn1"></div>
+      <div class="field"><label>ボタン2の文字</label><input data-bind="hero.btn2"></div>
+    </div>
+  </section>
+
+  <!-- order -->
+  <section class="panel" data-panel="order">
+    <h2>セクションの並び替え</h2>
+    <p class="muted">中央セクションの表示順を入れ替えます（トップと予約は固定）。</p>
+    <ul class="orderlist" id="orderList"></ul>
+  </section>
+
+  <!-- concept -->
+  <section class="panel" data-panel="concept">
+    <h2>コンセプト</h2>
+    <div class="field"><label>写真</label><div class="imgfield" data-img="concept.image"></div></div>
+    <div class="field"><label>英字ラベル</label><input data-bind="concept.eyebrow"></div>
+    <div class="field"><label>見出し（**で強調）</label><textarea data-bind="concept.heading"></textarea></div>
+    <div class="field"><label>本文1</label><textarea data-bind="concept.p1"></textarea></div>
+    <div class="field"><label>本文2</label><textarea data-bind="concept.p2"></textarea></div>
+    <div class="field"><label>特徴タグ（改行で区切り）</label><textarea data-list="concept.pills"></textarea></div>
+  </section>
+
+  <!-- menu -->
+  <section class="panel" data-panel="menu">
+    <h2>メニュー・料金</h2>
+    <div class="field"><label>英字ラベル</label><input data-bind="menu.eyebrow"></div>
+    <div class="field"><label>見出し</label><input data-bind="menu.heading"></div>
+    <div class="field"><label>リード文</label><input data-bind="menu.lead"></div>
+    <div id="menuItems"></div>
+  </section>
+
+  <!-- gallery -->
+  <section class="panel" data-panel="gallery">
+    <h2>ギャラリー</h2>
+    <div class="field"><label>英字ラベル</label><input data-bind="gallery.eyebrow"></div>
+    <div class="field"><label>見出し</label><input data-bind="gallery.heading"></div>
+    <div class="field"><label>リード文</label><input data-bind="gallery.lead"></div>
+    <div class="field"><label>写真（並び順どおり）</label><div id="galList"></div>
+      <button class="btn sub" id="galAdd" type="button">＋ 写真を追加</button></div>
+  </section>
+
+  <!-- staff -->
+  <section class="panel" data-panel="staff">
+    <h2>スタッフ紹介</h2>
+    <div class="field"><label>写真</label><div class="imgfield" data-img="staff.image"></div></div>
+    <div class="field"><label>英字ラベル</label><input data-bind="staff.eyebrow"></div>
+    <div class="row2">
+      <div class="field"><label>名前</label><input data-bind="staff.name"></div>
+      <div class="field"><label>肩書き</label><input data-bind="staff.role"></div>
+    </div>
+    <div class="field"><label>本文1</label><textarea data-bind="staff.p1"></textarea></div>
+    <div class="field"><label>本文2</label><textarea data-bind="staff.p2"></textarea></div>
+  </section>
+
+  <!-- info -->
+  <section class="panel" data-panel="info">
+    <h2>アクセス・営業情報</h2>
+    <div class="field"><label>営業時間</label><input data-bind="info.hours"></div>
+    <div class="field"><label>定休日</label><input data-bind="info.closed"></div>
+    <div class="field"><label>住所</label><input data-bind="info.address"></div>
+    <div class="field"><label>地図の検索語（住所や駅名。地図はこれで表示）</label><input data-bind="info.mapQuery"></div>
+    <div class="field"><label>アクセス（最寄り駅など）</label><input data-bind="info.access"></div>
+    <div class="field"><label>駐車場</label><input data-bind="info.parking"></div>
+    <div class="field"><label>支払い方法</label><input data-bind="info.pay"></div>
+  </section>
+
+  <!-- reserve / cta -->
+  <section class="panel" data-panel="reserve">
+    <h2>予約・お問い合わせ</h2>
+    <div class="hint">予約ボタンのリンク先です。ホットペッパー等の予約ページURL、LINE公式のURL、電話番号を入れてください。</div>
+    <div class="field"><label>ネット予約URL（ホットペッパー等）</label><input data-bind="reserve.hotpepper"></div>
+    <div class="field"><label>LINEのURL</label><input data-bind="reserve.line"></div>
+    <div class="field"><label>電話番号</label><input data-bind="reserve.tel"></div>
+    <hr style="border:0;border-top:1px solid var(--line);margin:20px 0">
+    <div class="field"><label>予約セクションの見出し</label><input data-bind="cta.heading"></div>
+    <div class="field"><label>予約セクションの説明</label><textarea data-bind="cta.text"></textarea></div>
+    <div class="field"><label>予約ボタンの文字</label><input data-bind="cta.btn"></div>
+    <div class="field"><label>フッターの住所表記</label><input data-bind="footer.address"></div>
+  </section>
+
+  <!-- settings -->
+  <section class="panel" data-panel="settings">
+    <h2>パスワード変更</h2>
+    <div class="field"><label>今のパスワード</label><input type="password" id="pwCur"></div>
+    <div class="field"><label>新しいパスワード（8文字以上）</label><input type="password" id="pwNew"></div>
+    <div class="field"><label>新しいパスワード（確認）</label><input type="password" id="pwNew2"></div>
+    <button class="btn" id="pwSave" type="button">パスワードを変更</button>
+    <p class="msg" id="pwMsg"></p>
+  </section>
+</div>
+
+<div class="savebar" id="savebar" style="display:none">
+  <span class="msg" id="saveMsg"></span>
+  <button class="btn" id="save">保存する</button>
+</div>
+
+<!-- image picker -->
+<div class="modal" id="picker">
+  <div class="box">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <strong>写真を選ぶ</strong>
+      <button class="btn sub" id="pickClose" type="button">閉じる</button>
+    </div>
+    <div class="field" style="margin-top:14px">
+      <label>新しい写真をアップロード（JPEG/PNG/WebP・4MBまで）</label>
+      <input type="file" id="pickFile" accept="image/*">
+    </div>
+    <div class="grid" id="pickGrid"></div>
+  </div>
+</div>
+
+<script>
+var C = null;                       // 現在の内容
+var pickTarget = null;              // 画像選択中のコールバック
+
+function api(url,opt){ return fetch(url,Object.assign({headers:{}},opt)); }
+function get(path,o){ return path.split('.').reduce(function(a,k){return a==null?null:a[k];},o); }
+function setPath(path,val,o){ var ks=path.split('.'),last=ks.pop(),t=o;
+  ks.forEach(function(k){ if(t[k]==null)t[k]={}; t=t[k]; }); t[last]=val; }
+
+function msg(el,text,ok){ el.textContent=text; el.className='msg '+(ok?'ok':'bad'); }
+
+/* ---------- login ---------- */
+document.getElementById('eye').onclick=function(){var p=document.getElementById('pw');p.type=p.type==='password'?'text':'password';};
+document.getElementById('loginForm').onsubmit=function(e){
+  e.preventDefault();
+  var m=document.getElementById('loginMsg'); m.textContent='';
+  api('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({password:document.getElementById('pw').value})})
+    .then(function(r){return r.json().then(function(j){return{ok:r.ok,j:j};});})
+    .then(function(x){ if(x.ok){ boot(); } else { msg(m,x.j.error||'ログインできません'); } })
+    .catch(function(){ msg(m,'通信エラー'); });
+};
+document.getElementById('logout').onclick=function(){
+  api('/api/logout',{method:'POST'}).then(function(){ location.reload(); });
+};
+
+/* ---------- boot ---------- */
+function boot(){
+  document.getElementById('login').style.display='none';
+  document.getElementById('app').style.display='block';
+  document.getElementById('savebar').style.display='flex';
+  loadContent();
+}
+function loadContent(){
+  api('/api/content?t='+Date.now())
+    .then(function(r){ return r.ok?r.json():fetch('data/content.json?t='+Date.now()).then(function(x){return x.json();}); })
+    .then(function(d){ C=d; render(); });
+}
+
+/* ---------- tabs ---------- */
+document.getElementById('tabs').addEventListener('click',function(e){
+  var b=e.target.closest('button[data-tab]'); if(!b)return;
+  document.querySelectorAll('nav.tabs button').forEach(function(x){x.classList.remove('on');});
+  b.classList.add('on');
+  var t=b.getAttribute('data-tab');
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.toggle('on',p.getAttribute('data-panel')===t); });
+});
+
+/* ---------- render form from C ---------- */
+function render(){
+  document.querySelectorAll('[data-bind]').forEach(function(el){
+    var v=get(el.getAttribute('data-bind'),C); el.value=(v==null?'':v);
+  });
+  document.querySelectorAll('[data-list]').forEach(function(el){
+    var v=get(el.getAttribute('data-list'),C); el.value=Array.isArray(v)?v.join('\n'):'';
+  });
+  document.querySelectorAll('[data-img]').forEach(function(el){ renderImgField(el); });
+  renderMenu(); renderGallery(); renderOrder();
+}
+function renderImgField(el){
+  var path=el.getAttribute('data-img'), cur=get(path,C)||'';
+  el.innerHTML='';
+  var img=document.createElement('img'); img.src=cur; img.alt='';
+  var wrap=document.createElement('div'); wrap.className='u';
+  var b=document.createElement('button'); b.type='button'; b.className='btn sub'; b.textContent='写真を変える';
+  var small=document.createElement('div'); small.className='muted'; small.style.marginTop='4px';
+  small.textContent=cur; small.style.wordBreak='break-all'; small.style.fontSize='.72rem';
+  b.onclick=function(){ openPicker(function(p){ setPath(path,p,C); renderImgField(el); }); };
+  wrap.appendChild(b); wrap.appendChild(small);
+  el.appendChild(img); el.appendChild(wrap);
+}
+
+function renderMenu(){
+  var box=document.getElementById('menuItems'); box.innerHTML='';
+  (C.menu.items||[]).forEach(function(it,i){
+    var d=document.createElement('div'); d.className='item';
+    d.innerHTML=
+      '<div class="head"><strong>メニュー '+(i+1)+'</strong>'+
+      '<label class="chk"><input type="checkbox" '+(it.show!==false?'checked':'')+' data-mshow="'+i+'">表示する</label></div>'+
+      '<div class="imgfield" data-img="menu.items.'+i+'.image"></div>'+
+      '<div class="row2" style="margin-top:12px">'+
+        '<div class="field" style="margin:0"><label>メニュー名</label><input data-bind="menu.items.'+i+'.name"></div>'+
+        '<div class="field" style="margin:0"><label>価格</label><input data-bind="menu.items.'+i+'.price"></div>'+
+      '</div>'+
+      '<div class="row2" style="margin-top:12px">'+
+        '<div class="field" style="margin:0"><label>説明</label><input data-bind="menu.items.'+i+'.sub"></div>'+
+        '<div class="field" style="margin:0"><label>バッジ（空欄で非表示）</label><input data-bind="menu.items.'+i+'.badge"></div>'+
+      '</div>';
+    box.appendChild(d);
+  });
+  // 再バインド
+  box.querySelectorAll('[data-bind]').forEach(function(el){ el.value=get(el.getAttribute('data-bind'),C)||''; });
+  box.querySelectorAll('[data-img]').forEach(function(el){ renderImgField(el); });
+}
+
+function renderGallery(){
+  var box=document.getElementById('galList'); box.innerHTML='';
+  (C.gallery.images||[]).forEach(function(src,i){
+    var d=document.createElement('div'); d.className='imgfield'; d.style.marginBottom='10px';
+    var img=document.createElement('img'); img.src=src;
+    var wrap=document.createElement('div'); wrap.className='u'; wrap.style.display='flex'; wrap.style.gap='6px';
+    var ch=document.createElement('button'); ch.type='button'; ch.className='btn sub'; ch.textContent='変える';
+    ch.onclick=function(){ openPicker(function(p){ C.gallery.images[i]=p; renderGallery(); }); };
+    var del=document.createElement('button'); del.type='button'; del.className='btn sub'; del.textContent='削除';
+    del.onclick=function(){ C.gallery.images.splice(i,1); renderGallery(); };
+    wrap.appendChild(ch); wrap.appendChild(del);
+    d.appendChild(img); d.appendChild(wrap); box.appendChild(d);
+  });
+}
+document.getElementById('galAdd').onclick=function(){
+  openPicker(function(p){ C.gallery.images.push(p); renderGallery(); });
+};
+
+function renderOrder(){
+  var ul=document.getElementById('orderList'); ul.innerHTML='';
+  var labels={concept:'コンセプト',menu:'メニュー',gallery:'ギャラリー',staff:'スタッフ',info:'アクセス'};
+  (C.order||[]).forEach(function(key,i){
+    var li=document.createElement('li');
+    var name=document.createElement('span'); name.textContent=labels[key]||key;
+    var mv=document.createElement('div'); mv.className='mv';
+    var up=document.createElement('button'); up.type='button'; up.textContent='▲';
+    up.onclick=function(){ if(i>0){ var a=C.order; a.splice(i-1,0,a.splice(i,1)[0]); renderOrder(); } };
+    var dn=document.createElement('button'); dn.type='button'; dn.textContent='▼';
+    dn.onclick=function(){ var a=C.order; if(i<a.length-1){ a.splice(i+1,0,a.splice(i,1)[0]); renderOrder(); } };
+    mv.appendChild(up); mv.appendChild(dn);
+    li.appendChild(name); li.appendChild(mv); ul.appendChild(li);
+  });
+}
+
+/* ---------- collect + save ---------- */
+function collect(){
+  document.querySelectorAll('[data-bind]').forEach(function(el){ setPath(el.getAttribute('data-bind'),el.value,C); });
+  document.querySelectorAll('[data-list]').forEach(function(el){
+    setPath(el.getAttribute('data-list'), el.value.split('\n').map(function(s){return s.trim();}).filter(Boolean), C);
+  });
+  document.querySelectorAll('[data-mshow]').forEach(function(el){ C.menu.items[el.getAttribute('data-mshow')].show=el.checked; });
+}
+document.getElementById('save').onclick=function(){
+  collect();
+  var m=document.getElementById('saveMsg'); m.textContent='保存中…'; m.className='msg';
+  api('/api/content',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(C)})
+    .then(function(r){ return r.json().then(function(j){return{ok:r.ok,st:r.status,j:j};}); })
+    .then(function(x){
+      if(x.ok){ msg(m,'保存しました ✓',true); }
+      else if(x.st===401){ msg(m,'ログインが切れました。再ログインしてください'); }
+      else { msg(m,x.j.error||'保存に失敗しました'); }
+    })
+    .catch(function(){ msg(m,'通信エラー'); });
+};
+
+/* ---------- password ---------- */
+document.getElementById('pwSave').onclick=function(){
+  var m=document.getElementById('pwMsg');
+  var cur=document.getElementById('pwCur').value,n1=document.getElementById('pwNew').value,n2=document.getElementById('pwNew2').value;
+  if(n1.length<8){ msg(m,'新しいパスワードは8文字以上'); return; }
+  if(n1!==n2){ msg(m,'確認用が一致しません'); return; }
+  api('/api/changepw',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({current:cur,next:n1})})
+    .then(function(r){ return r.json().then(function(j){return{ok:r.ok,j:j};}); })
+    .then(function(x){ if(x.ok){ msg(m,'変更しました ✓',true); document.getElementById('pwCur').value='';document.getElementById('pwNew').value='';document.getElementById('pwNew2').value=''; }
+      else { msg(m,x.j.error||'変更できません'); } });
+};
+
+/* ---------- image picker ---------- */
+function openPicker(cb){
+  pickTarget=cb;
+  document.getElementById('picker').classList.add('on');
+  var grid=document.getElementById('pickGrid'); grid.innerHTML='<p class="muted">読み込み中…</p>';
+  api('/api/images').then(function(r){return r.json();}).then(function(d){
+    grid.innerHTML='';
+    (d.images||[]).forEach(function(src){
+      var im=document.createElement('img'); im.src=src; im.alt='';
+      im.onclick=function(){ if(pickTarget)pickTarget(src); closePicker(); };
+      grid.appendChild(im);
+    });
+    if(!(d.images||[]).length) grid.innerHTML='<p class="muted">写真がありません。上からアップロードしてください。</p>';
+  }).catch(function(){ grid.innerHTML='<p class="muted">読み込みに失敗しました</p>'; });
+}
+function closePicker(){ document.getElementById('picker').classList.remove('on'); pickTarget=null;
+  document.getElementById('pickFile').value=''; }
+document.getElementById('pickClose').onclick=closePicker;
+document.getElementById('pickFile').onchange=function(){
+  var f=this.files[0]; if(!f)return;
+  var fd=new FormData(); fd.append('file',f);
+  var grid=document.getElementById('pickGrid'); grid.insertAdjacentHTML('afterbegin','<p class="muted" id="upmsg">アップロード中…</p>');
+  api('/api/upload',{method:'POST',body:fd}).then(function(r){return r.json().then(function(j){return{ok:r.ok,j:j};});})
+    .then(function(x){ var um=document.getElementById('upmsg');
+      if(x.ok){ if(pickTarget)pickTarget(x.j.path); closePicker(); }
+      else { if(um)um.textContent=x.j.error||'アップロード失敗'; } });
+};
+
+/* ---------- start: セッション確認 ---------- */
+api('/api/session').then(function(r){return r.json();}).then(function(d){ if(d.loggedIn) boot(); })
+  .catch(function(){});
+</script>
+</body>
+</html>

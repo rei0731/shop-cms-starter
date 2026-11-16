@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>自由が丘のネイルサロン Lueur｜完全予約制</title>
+<meta name="description" content="自由が丘の完全予約制ネイルサロン Lueur（リュエール）。大人の女性の毎日に寄り添う、肌なじみの良いナチュラルなデザイン。ハンド／フット、パラジェル取扱。">
+<meta property="og:title" content="ネイルサロン Lueur（リュエール）">
+<meta property="og:description" content="指先から、やわらかな光を。自由が丘の完全予約制ネイルサロン。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://example.pages.dev/">
+<meta property="og:image" content="https://example.pages.dev/images/hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- 店舗情報の構造化データ。Google検索の店舗パネルや地図検索で参照される。
+     data/content.json の info と内容を合わせておくこと（自動連携はしていない）。 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NailSalon",
+  "name": "ネイルサロン Lueur（リュエール）",
+  "url": "https://example.pages.dev/",
+  "image": "https://example.pages.dev/images/hero.jpg",
+  "description": "自由が丘の完全予約制ネイルサロン。ハンド／フット、パラジェル取扱。",
+  "priceRange": "¥6,600〜¥8,800",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "JP",
+    "addressRegion": "東京都",
+    "addressLocality": "世田谷区",
+    "streetAddress": "奥沢0-0-0 リュエールビル 2F"
+  },
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    "opens": "10:00",
+    "closes": "19:00"
+  }],
+  "paymentAccepted": "現金, クレジットカード, QRコード決済",
+  "publicAccess": true
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --base:#FAF6F1;      /* 生成り白 */
+    --beige:#E7DBCE;     /* ベージュ */
+    --beige-2:#F1E9E0;
+    --pink:#C9A9A6;      /* くすみピンク */
+    --pink-d:#B18E8B;
+    --green:#8F9A88;     /* くすみグリーン */
+    --ink:#6B5D52;       /* ブラウングレー（本文） */
+    --ink-soft:#8C8074;
+    --line:rgba(107,93,82,.18);
+    --line-soft:rgba(107,93,82,.10);
+    --serif-en:'Cormorant Garamond', serif;
+    --serif-jp:'Noto Serif JP', serif;
+    --sans:'Noto Sans JP', sans-serif;
+    --maxw:1120px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--base);color:var(--ink);
+    font-family:var(--sans);font-weight:400;line-height:1.9;
+    font-size:16px;letter-spacing:.02em;-webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  .accent{color:var(--pink-d)}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+  .eyebrow{
+    font-family:var(--serif-en);font-size:.82rem;letter-spacing:.42em;
+    text-transform:uppercase;color:var(--pink-d);margin:0 0 14px;font-weight:500;
+  }
+  .sec-head{ text-align:center;margin-bottom:52px }
+  .sec-head h2{
+    font-family:var(--serif-jp);font-weight:500;font-size:clamp(1.5rem,3.4vw,2.15rem);
+    margin:0;letter-spacing:.06em;line-height:1.6;
+  }
+  .sec-head .lead{margin:18px auto 0;max-width:640px;color:var(--ink-soft);font-size:.95rem;white-space:pre-line}
+
+  /* ---------- header ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:20px 30px;transition:background .4s,box-shadow .4s,padding .4s;
+  }
+  header.scrolled{background:rgba(250,246,241,.92);backdrop-filter:blur(8px);
+    box-shadow:0 1px 0 var(--line-soft);padding:14px 30px}
+  .logo{font-family:var(--serif-en);font-size:1.6rem;letter-spacing:.28em;color:#fff;
+    padding-left:.28em;transition:color .4s}
+  .logo .jp{display:block;font-family:var(--sans);font-size:.56rem;letter-spacing:.5em;
+    color:rgba(255,255,255,.85);margin-top:2px;font-weight:300}
+  header.scrolled .logo{color:var(--ink)}
+  header.scrolled .logo .jp{color:var(--ink-soft)}
+  nav#navlinks{display:flex;gap:30px;align-items:center}
+  nav#navlinks a{font-size:.8rem;letter-spacing:.16em;color:#fff;transition:color .4s;
+    position:relative}
+  nav#navlinks a::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:1px;
+    background:currentColor;transition:width .35s}
+  nav#navlinks a:hover::after{width:100%}
+  header.scrolled nav#navlinks a{color:var(--ink)}
+  .nav-reserve{border:1px solid rgba(255,255,255,.7);padding:9px 20px !important;border-radius:2px;
+    letter-spacing:.14em}
+  header.scrolled .nav-reserve{border-color:var(--pink);color:var(--pink-d) !important}
+  @media(max-width:860px){ nav#navlinks{display:none} }
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;
+    justify-content:center;text-align:center;color:#fff;overflow:hidden}
+  .hero__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+  .hero::after{content:'';position:absolute;inset:0;z-index:1;
+    background:
+      radial-gradient(60% 50% at 50% 46%, rgba(60,44,40,.42), rgba(60,44,40,0) 70%),
+      linear-gradient(180deg,rgba(66,50,45,.40),rgba(66,50,45,.26) 42%,rgba(66,50,45,.55))}
+  .hero__inner{position:relative;z-index:2;padding:0 24px;max-width:760px}
+  .hero .eyebrow{color:rgba(255,255,255,.92)}
+  .hero h1{font-family:var(--serif-jp);font-weight:500;
+    font-size:clamp(2rem,6vw,3.4rem);line-height:1.5;letter-spacing:.08em;margin:0;
+    text-shadow:0 1px 3px rgba(40,28,24,.6), 0 3px 26px rgba(40,28,24,.5)}
+  .hero h1 .accent{color:#F6C6BA;text-shadow:0 1px 3px rgba(60,30,26,.55), 0 3px 22px rgba(60,30,26,.45)}
+  .hero .tagline{font-family:var(--serif-en);font-style:italic;font-size:1.15rem;
+    letter-spacing:.14em;margin:22px 0 0;color:rgba(255,255,255,.94)}
+  .hero .lead{margin:20px auto 0;max-width:520px;font-size:.92rem;font-weight:300;
+    color:rgba(255,255,255,.92);letter-spacing:.06em;white-space:pre-line}
+  .hero__btns{margin-top:38px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;
+    font-size:.86rem;letter-spacing:.16em;padding:15px 34px;border-radius:2px;
+    transition:transform .25s,background .3s,color .3s,border-color .3s;cursor:pointer}
+  .btn:hover{transform:translateY(-2px)}
+  .btn--fill{background:var(--pink);color:#fff;border:1px solid var(--pink)}
+  .btn--fill:hover{background:var(--pink-d);border-color:var(--pink-d)}
+  .btn--ghost{border:1px solid rgba(255,255,255,.75);color:#fff}
+  .btn--ghost:hover{background:rgba(255,255,255,.14)}
+  .scroll-cue{position:absolute;left:50%;bottom:26px;z-index:2;transform:translateX(-50%);
+    font-family:var(--serif-en);font-size:.66rem;letter-spacing:.34em;color:rgba(255,255,255,.85)}
+  .scroll-cue span{display:block;width:1px;height:44px;background:rgba(255,255,255,.6);
+    margin:10px auto 0;animation:cue 2.2s ease-in-out infinite}
+  @keyframes cue{0%,100%{transform:scaleY(.4);opacity:.3;transform-origin:top}
+    50%{transform:scaleY(1);opacity:1;transform-origin:top}}
+
+  /* ---------- sections ---------- */
+  section.block{padding:96px 0}
+  .concept-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center}
+  .concept-grid .txt .eyebrow{margin-top:0}
+  .concept-grid h2{font-family:var(--serif-jp);font-weight:500;
+    font-size:clamp(1.4rem,3vw,2rem);line-height:1.7;letter-spacing:.05em;margin:0 0 26px}
+  .concept-grid p{margin:0 0 18px;color:var(--ink-soft);font-size:.96rem;white-space:pre-line}
+  .figure{position:relative;border-radius:3px;overflow:hidden}
+  .figure::after{content:'';position:absolute;inset:0;border:1px solid rgba(255,255,255,.4);
+    margin:12px;pointer-events:none}
+  .figure img{width:100%;aspect-ratio:5/6;object-fit:cover}
+  .pills{list-style:none;display:flex;flex-wrap:wrap;gap:10px;padding:0;margin:30px 0 0}
+  .pills .pill{font-size:.76rem;letter-spacing:.1em;color:var(--ink-soft);
+    border:1px solid var(--line);border-radius:20px;padding:7px 16px;background:#fff}
+
+  /* menu */
+  #menu{background:linear-gradient(180deg,var(--beige-2),var(--base))}
+  .menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:30px}
+  .menu-card{background:#fff;border:1px solid var(--line-soft);border-radius:4px;overflow:hidden;
+    display:flex;transition:box-shadow .35s,transform .35s}
+  .menu-card:hover{box-shadow:0 18px 40px -24px rgba(107,93,82,.45);transform:translateY(-3px)}
+  .menu-card__img{width:40%;min-width:130px;object-fit:cover}
+  .menu-card__body{padding:24px 26px;flex:1;display:flex;flex-direction:column;justify-content:center}
+  .menu-card__body .badge{align-self:flex-start;font-size:.68rem;letter-spacing:.12em;
+    color:var(--pink-d);background:var(--beige-2);border-radius:20px;padding:4px 12px;margin-bottom:10px}
+  .menu-card__body .badge:empty{display:none}
+  .menu-card__body h3{font-family:var(--serif-jp);font-weight:500;font-size:1.12rem;margin:0;
+    letter-spacing:.04em}
+  .menu-card__body .sub{color:var(--ink-soft);font-size:.85rem;margin:8px 0 0}
+  .menu-card__body .price{font-family:var(--serif-en);font-size:1.5rem;color:var(--pink-d);
+    margin-top:14px;letter-spacing:.04em}
+  .menu-note{text-align:center;color:var(--ink-soft);font-size:.82rem;margin-top:30px}
+
+  /* gallery */
+  .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .gallery-grid .gal{overflow:hidden;border-radius:3px}
+  .gallery-grid .gal img{width:100%;aspect-ratio:1;object-fit:cover;transition:transform .6s ease}
+  .gallery-grid .gal:hover img{transform:scale(1.06)}
+
+  /* staff */
+  #staff{background:linear-gradient(180deg,var(--base),var(--beige-2))}
+  .staff-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:center;
+    max-width:960px;margin:0 auto}
+  .staff-grid .figure img{aspect-ratio:4/5}
+  .staff-grid h3{font-family:var(--serif-jp);font-weight:500;font-size:1.35rem;margin:6px 0 4px;
+    letter-spacing:.05em}
+  .staff-grid .role{font-family:var(--serif-en);letter-spacing:.16em;color:var(--pink-d);
+    font-size:.9rem;margin:0 0 22px}
+  .staff-grid p{color:var(--ink-soft);font-size:.95rem;margin:0 0 16px}
+
+  /* info */
+  .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start}
+  .info-list{list-style:none;padding:0;margin:0}
+  .info-list li{display:grid;grid-template-columns:96px 1fr;gap:18px;padding:16px 0;
+    border-bottom:1px solid var(--line-soft);font-size:.94rem}
+  .info-list dt,.info-list .k{font-family:var(--serif-en);letter-spacing:.14em;color:var(--pink-d);
+    font-size:.82rem;padding-top:2px}
+  .map{width:100%;height:340px;border:0;border-radius:4px;filter:saturate(.85)}
+
+  /* CTA */
+  .cta{background:var(--beige);text-align:center;padding:88px 0}
+  .cta h2{font-family:var(--serif-jp);font-weight:500;font-size:clamp(1.4rem,3vw,1.9rem);
+    margin:0 0 16px;letter-spacing:.06em}
+  .cta p{color:var(--ink);max-width:560px;margin:0 auto 30px;font-size:.95rem}
+  .cta__btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .cta .btn--line{background:#06C755;border-color:#06C755;color:#fff}
+  .cta .btn--tel{background:#fff;border:1px solid var(--pink);color:var(--pink-d)}
+
+  /* footer */
+  footer{background:var(--ink);color:rgba(255,255,255,.82);text-align:center;padding:50px 24px 120px}
+  footer .flogo{font-family:var(--serif-en);font-size:1.5rem;letter-spacing:.3em;padding-left:.3em}
+  footer .faddr{font-size:.82rem;margin:14px 0 0;color:rgba(255,255,255,.6);line-height:1.9}
+  footer .demo-note{font-size:.72rem;line-height:1.8;margin:18px auto 0;max-width:560px;
+    color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.16);border-radius:3px;padding:10px 16px}
+  footer .copy{font-size:.7rem;letter-spacing:.1em;margin-top:22px;color:rgba(255,255,255,.4)}
+
+  /* mobile fixed CTA bar */
+  .mbar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;
+    grid-template-columns:1fr 1fr 1fr;background:#fff;box-shadow:0 -1px 0 var(--line-soft)}
+  .mbar a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+    padding:11px 4px;font-size:.66rem;letter-spacing:.08em;color:var(--ink)}
+  .mbar a svg{width:20px;height:20px}
+  .mbar a.mbar__resv{background:var(--pink);color:#fff}
+  .mbar a.mbar__line{background:#06C755;color:#fff}
+  @media(max-width:860px){ .mbar{display:grid} footer{padding-bottom:130px} }
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity 1s ease,transform 1s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* responsive */
+  @media(max-width:860px){
+    section.block{padding:72px 0}
+    .concept-grid,.staff-grid,.info-grid{grid-template-columns:1fr;gap:38px}
+    .concept-grid .figure{order:-1}
+    .menu-grid{grid-template-columns:1fr}
+    .gallery-grid{grid-template-columns:repeat(2,1fr)}
+    .sec-head{margin-bottom:38px}
+  }
+  @media(max-width:460px){
+    .menu-card{flex-direction:column}
+    .menu-card__img{width:100%;height:180px}
+    .hero__btns{flex-direction:column;align-items:stretch}
+  }
+</style>
+</head>
+<body>
+
+<header id="siteheader">
+  <a class="logo" href="#top">Lueur<span class="jp">NAIL SALON</span></a>
+  <nav id="navlinks">
+    <a href="#concept" data-nav="concept">Concept</a>
+    <a href="#menu" data-nav="menu">Menu</a>
+    <a href="#gallery" data-nav="gallery">Gallery</a>
+    <a href="#staff" data-nav="staff">Staff</a>
+    <a href="#info" data-nav="info">Access</a>
+    <a class="nav-reserve" href="#reserve" data-cms-href="reserve.hotpepper" target="_blank" rel="noopener">ご予約</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <img class="hero__img" data-cms-src="hero.image" src="images/hero.jpg"
+       alt="白のフレンチネイルを施した手元" fetchpriority="high" decoding="async">
+  <div class="hero__inner">
+    <p class="eyebrow" data-cms="hero.eyebrow">NAIL SALON LUEUR</p>
+    <h1 data-cms-rich="hero.title">指先から<span class="accent">やわらかな光</span>を</h1>
+    <p class="tagline" data-cms="hero.tagline">your everyday luxury</p>
+    <p class="lead" data-cms="hero.lead">大人の女性の毎日に、そっと寄り添う上質を
+爪先からはじまる、あなただけの心地よさ</p>
+    <div class="hero__btns">
+      <a class="btn btn--fill" data-cms-href="reserve.hotpepper" href="#reserve" target="_blank" rel="noopener"><span data-cms="hero.btn1">ご予約はこちら</span></a>
+      <a class="btn btn--ghost" href="#concept"><span data-cms="hero.btn2">サロンについて</span></a>
+    </div>
+  </div>
+  <div class="scroll-cue">SCROLL<span></span></div>
+</section>
+
+<!-- CONCEPT -->
+<section class="block" id="concept" data-section="concept">
+  <div class="wrap concept-grid">
+    <div class="txt reveal">
+      <p class="eyebrow" data-cms="concept.eyebrow">CONCEPT</p>
+      <h2 data-cms-rich="concept.heading">肩の力をぬいて、<span class="accent">わたしを整える</span>時間</h2>
+      <p data-cms="concept.p1">Lueur（リュエール）はフランス語で「やわらかな光」。
+特別な日のためではなく、いつもの毎日をすこし丁寧にするためのネイルサロンです。</p>
+      <p data-cms="concept.p2">流行を追いすぎず、あなたの手にいちばん似合う色とかたちを、一緒に見つけます。
+落ち着いた個室空間で、施術の時間そのものを楽しんでください。</p>
+      <ul class="pills" data-cms-pills="concept.pills">
+        <li class="pill">完全予約制</li><li class="pill">個室サロン</li><li class="pill">パラジェル取扱</li><li class="pill">ハンド／フット</li>
+      </ul>
+    </div>
+    <div class="figure reveal">
+      <img data-cms-src="concept.image" src="images/concept.jpg"
+           alt="落ち着いた照明の個室サロンの様子" loading="lazy" decoding="async">
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="block" id="menu" data-section="menu">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow" data-cms="menu.eyebrow">MENU</p>
+      <h2 data-cms="menu.heading">メニュー・料金</h2>
+      <p class="lead" data-cms="menu.lead">すべてオフ・ケア込み。表示価格は税込です。</p>
+    </div>
+    <div class="menu-grid">
+      <article class="menu-card reveal" data-cms-menu="0">
+        <img class="menu-card__img" data-cms-src="menu.items.0.image"
+             src="images/menu1.jpg" alt="ワンカラーの施術例" loading="lazy" decoding="async">
+        <div class="menu-card__body">
+          <span class="badge" data-cms="menu.items.0.badge">定番</span>
+          <h3 data-cms="menu.items.0.name">ワンカラー</h3>
+          <p class="sub" data-cms="menu.items.0.sub">シンプルにまとめたい方へ</p>
+          <p class="price" data-cms="menu.items.0.price">¥6,600</p>
+        </div>
+      </article>
+      <article class="menu-card reveal" data-cms-menu="1">
+        <img class="menu-card__img" data-cms-src="menu.items.1.image"
+             src="images/menu2.jpg" alt="ニュアンス／くすみカラーの施術例" loading="lazy" decoding="async">
+        <div class="menu-card__body">
+          <span class="badge" data-cms="menu.items.1.badge">人気No.1</span>
+          <h3 data-cms="menu.items.1.name">ニュアンス／くすみカラー</h3>
+          <p class="sub" data-cms="menu.items.1.sub">今どきの磨りガラス・マグネット</p>
+          <p class="price" data-cms="menu.items.1.price">¥8,800</p>
+        </div>
+      </article>
+      <article class="menu-card reveal" data-cms-menu="2">
+        <img class="menu-card__img" data-cms-src="menu.items.2.image"
+             src="images/menu3.jpg" alt="フレンチ・グラデーションの施術例" loading="lazy" decoding="async">
+        <div class="menu-card__body">
+          <span class="badge" data-cms="menu.items.2.badge"></span>
+          <h3 data-cms="menu.items.2.name">フレンチ・グラデーション</h3>
+          <p class="sub" data-cms="menu.items.2.sub">上品で飽きのこない王道</p>
+          <p class="price" data-cms="menu.items.2.price">¥7,700</p>
+        </div>
+      </article>
+      <article class="menu-card reveal" data-cms-menu="3">
+        <img class="menu-card__img" data-cms-src="menu.items.3.image"
+             src="images/menu4.jpg" alt="フットネイルの施術例" loading="lazy" decoding="async">
+        <div class="menu-card__body">
+          <span class="badge" data-cms="menu.items.3.badge"></span>
+          <h3 data-cms="menu.items.3.name">フットネイル</h3>
+          <p class="sub" data-cms="menu.items.3.sub">サンダルの季節に、足元も美しく</p>
+          <p class="price" data-cms="menu.items.3.price">¥8,800</p>
+        </div>
+      </article>
+    </div>
+    <p class="menu-note">※ アートや長さ出し等はデザインにより追加料金を頂戴します。詳しくは店頭でご案内します。</p>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="block" id="gallery" data-section="gallery">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow" data-cms="gallery.eyebrow">GALLERY</p>
+      <h2 data-cms="gallery.heading">デザインギャラリー</h2>
+      <p class="lead" data-cms="gallery.lead">季節のデザイン、定番アート、シーズン限定など。
+お好みのイメージをご相談ください。</p>
+    </div>
+    <div class="gallery-grid reveal" data-cms-gallery="gallery.images">
+      <div class="gal"><img src="images/gallery1.jpg"
+           alt="ネイルデザインの施術例 1" loading="lazy" decoding="async"></div>
+      <div class="gal"><img src="images/gallery2.jpg"
+           alt="ネイルデザインの施術例 2" loading="lazy" decoding="async"></div>
+      <div class="gal"><img src="images/gallery3.jpg"
+           alt="ネイルデザインの施術例 3" loading="lazy" decoding="async"></div>
+      <div class="gal"><img src="images/gallery4.jpg"
+           alt="ネイルデザインの施術例 4" loading="lazy" decoding="async"></div>
+      <div class="gal"><img src="images/gallery5.jpg"
+           alt="ネイルデザインの施術例 5" loading="lazy" decoding="async"></div>
+      <div class="gal"><img src="images/gallery6.jpg"
+           alt="ネイルデザインの施術例 6" loading="lazy" decoding="async"></div>
+    </div>
+  </div>
+</section>
+
+<!-- STAFF -->
+<section class="block" id="staff" data-section="staff">
+  <div class="wrap staff-grid">
+    <div class="figure reveal"><img data-cms-src="staff.image" src="images/staff.jpg"
+         alt="施術するネイリスト" loading="lazy" decoding="async"></div>
+    <div class="reveal">
+      <p class="eyebrow" data-cms="staff.eyebrow">STAFF</p>
+      <h3 data-cms="staff.name">水科 澪 ／ Mio Mizushina</h3>
+      <p class="role" data-cms="staff.role">オーナーネイリスト</p>
+      <p data-cms="staff.p1">ネイリスト歴12年。ナチュラルで肌なじみの良いデザインを得意としています。</p>
+      <p data-cms="staff.p2">「手元を見るたびに、少し気分が上がる」——そんな時間をお届けできるよう、丁寧なカウンセリングとケアを大切にしています。</p>
+    </div>
+  </div>
+</section>
+
+<!-- INFO / ACCESS -->
+<section class="block" id="info" data-section="info">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow" data-cms="info.eyebrow">ACCESS</p>
+      <h2 data-cms="info.heading">アクセス・営業情報</h2>
+    </div>
+    <div class="info-grid">
+      <ul class="info-list reveal">
+        <li><span class="k">OPEN</span><span data-cms="info.hours">10:00 – 19:00（最終受付 18:00）</span></li>
+        <li><span class="k">CLOSED</span><span data-cms="info.closed">火曜・第2水曜</span></li>
+        <li><span class="k">ADDRESS</span><span data-cms="info.address">東京都世田谷区奥沢0-0-0 リュエールビル 2F</span></li>
+        <li><span class="k">ACCESS</span><span data-cms="info.access">東急東横線・大井町線「自由が丘駅」より徒歩5分</span></li>
+        <li><span class="k">PARKING</span><span data-cms="info.parking">近隣コインパーキングをご利用ください</span></li>
+        <li><span class="k">PAY</span><span data-cms="info.pay">現金・各種クレジット・QRコード決済</span></li>
+      </ul>
+      <iframe class="map reveal" data-cms-map="info.mapQuery" title="地図"
+        src="https://maps.google.com/maps?q=%E6%9D%B1%E4%BA%AC%E9%83%BD%E4%B8%96%E7%94%B0%E8%B0%B7%E5%8C%BA%E5%A5%A5%E6%B2%A2%20%E8%87%AA%E7%94%B1%E3%81%8C%E4%B8%98%E9%A7%85&output=embed"
+        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="reserve">
+  <div class="wrap">
+    <h2 data-cms="cta.heading">ご予約・お問い合わせ</h2>
+    <p data-cms="cta.text">ご予約はネット予約・LINE・お電話で承っております。当日のご予約はお電話がスムーズです。</p>
+    <div class="cta__btns">
+      <a class="btn btn--fill" data-cms-href="reserve.hotpepper" href="#" target="_blank" rel="noopener"><span data-cms="cta.btn">ネットで予約する</span></a>
+      <a class="btn btn--line" data-cms-href="reserve.line" href="#" target="_blank" rel="noopener">LINEで予約</a>
+      <a class="btn btn--tel" data-cms-tel="reserve.tel" href="tel:0312345678">TEL <span data-cms="reserve.tel">03-1234-5678</span></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="flogo">Lueur</div>
+  <p class="faddr" data-cms="footer.address">ネイルサロン Lueur（リュエール）／ 東京都世田谷区奥沢0-0-0 リュエールビル 2F</p>
+  <p class="demo-note">Sample Site ｜ これは架空サロン「Lueur」のデモサイトです。店名・住所・電話・料金・写真はすべてサンプルです（写真は差し替え用の仮画像）。</p>
+  <p class="copy">© Lueur. All rights reserved.</p>
+</footer>
+
+<!-- mobile fixed CTA bar -->
+<div class="mbar">
+  <a class="mbar__tel" data-cms-tel="reserve.tel" href="tel:0312345678">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h4l2 5-3 2a12 12 0 006 6l2-3 5 2v4a2 2 0 01-2 2A17 17 0 013 6a2 2 0 011-2z"/></svg>
+    電話
+  </a>
+  <a class="mbar__line" data-cms-href="reserve.line" href="#" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.5 3 2 6.7 2 11.2c0 4 3.6 7.4 8.4 8 .3.07.8.2.9.5.08.27.05.7.03.97l-.15.9c-.04.27-.2 1.05.92.57 1.12-.47 6.05-3.56 8.26-6.1C21.6 14.6 22 13 22 11.2 22 6.7 17.5 3 12 3z"/></svg>
+    LINE
+  </a>
+  <a class="mbar__resv" data-cms-href="reserve.hotpepper" href="#" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-4.5-9.2-9C1.3 8.7 3 5 6.5 5 8.7 5 10 6.5 12 8c2-1.5 3.3-3 5.5-3C21 5 22.7 8.7 21.2 12 19 16.5 12 21 12 21z"/></svg>
+    ご予約
+  </a>
+</div>
+
+<script>
+// ===== ヘッダーのスクロール切替 & リビール =====
+(function(){
+  var header=document.getElementById('siteheader');
+  function onScroll(){ if(window.scrollY>60) header.classList.add('scrolled'); else header.classList.remove('scrolled'); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+})();
+
+// ===== 内容の差し替え（/api/content → 無ければ data/content.json）=====
+// 読み込めない場合はHTMLに書かれた内容がそのまま残る（白画面にならない）
+(function(){
+  function get(path, data){
+    return path.split('.').reduce(function(o,k){ return (o == null) ? null : o[k]; }, data);
+  }
+  var EMPH = {orange:'#e07d12', red:'#d3453b', green:'#8F9A88', blue:'#2f7fb5', pink:'#B18E8B', brown:'#7a5a3a'};
+  function rich(text){
+    var esc = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    return esc.replace(/\*\*(.+?)\*\*/g, function(_, inner){
+      var m = inner.match(/^(orange|red|green|blue|pink|brown):([\s\S]+)$/);
+      if(m) return '<span class="accent" style="color:' + EMPH[m[1]] + '">' + m[2] + '</span>';
+      return '<span class="accent">' + inner + '</span>';
+    }).replace(/\n/g, '<br>');
+  }
+
+  fetch('/api/content?t=' + Date.now())
+    .then(function(r){ return r.ok ? r.json() : Promise.reject(); })
+    .catch(function(){
+      return fetch('data/content.json?t=' + Date.now()).then(function(r){ return r.ok ? r.json() : null; });
+    })
+    .then(function(data){
+      if(!data) return;
+
+      // セクション並び替え
+      if(Array.isArray(data.order)){
+        var hero = document.getElementById('top');
+        var secs = {};
+        document.querySelectorAll('[data-section]').forEach(function(el){
+          secs[el.getAttribute('data-section')] = el;
+        });
+        if(hero){
+          var after = hero;
+          data.order.forEach(function(key){
+            if(secs[key]){ after.after(secs[key]); after = secs[key]; }
+          });
+        }
+        var nav = document.getElementById('navlinks');
+        if(nav){
+          var links = {};
+          nav.querySelectorAll('[data-nav]').forEach(function(a){ links[a.getAttribute('data-nav')] = a; });
+          data.order.forEach(function(key){ if(links[key]) nav.appendChild(links[key]); });
+        }
+      }
+
+      // 文字（空文字も反映）
+      document.querySelectorAll('[data-cms]').forEach(function(el){
+        var val = get(el.getAttribute('data-cms'), data);
+        if(typeof val !== 'string') return;
+        if(val.indexOf('**') >= 0) el.innerHTML = rich(val);
+        else el.textContent = val;
+      });
+      // 見出し（**強調**・改行）
+      document.querySelectorAll('[data-cms-rich]').forEach(function(el){
+        var val = get(el.getAttribute('data-cms-rich'), data);
+        if(typeof val === 'string' && val.trim() !== '') el.innerHTML = rich(val);
+      });
+      // 画像
+      document.querySelectorAll('[data-cms-src]').forEach(function(el){
+        var val = get(el.getAttribute('data-cms-src'), data);
+        if(typeof val === 'string' && val.trim() !== '') el.setAttribute('src', val);
+      });
+      // リンク（予約URL等）
+      document.querySelectorAll('[data-cms-href]').forEach(function(el){
+        var val = get(el.getAttribute('data-cms-href'), data);
+        if(typeof val === 'string' && val.trim() !== '') el.setAttribute('href', val);
+      });
+      // 電話（tel:リンクを自動生成）
+      document.querySelectorAll('[data-cms-tel]').forEach(function(el){
+        var val = get(el.getAttribute('data-cms-tel'), data);
+        if(typeof val === 'string' && val.trim() !== '') el.setAttribute('href', 'tel:' + val.replace(/[^0-9+]/g,''));
+      });
+      // 特徴タグ
+      document.querySelectorAll('[data-cms-pills]').forEach(function(el){
+        var list = get(el.getAttribute('data-cms-pills'), data);
+        if(!Array.isArray(list)) return;
+        el.innerHTML = '';
+        list.forEach(function(t){
+          if(!t) return;
+          var s = document.createElement('li'); s.className='pill'; s.textContent=t; el.appendChild(s);
+        });
+      });
+      // ギャラリー
+      document.querySelectorAll('[data-cms-gallery]').forEach(function(el){
+        var list = get(el.getAttribute('data-cms-gallery'), data);
+        if(!Array.isArray(list) || !list.length) return;
+        el.innerHTML = '';
+        list.forEach(function(src){
+          if(!src) return;
+          var d=document.createElement('div'); d.className='gal';
+          var i=document.createElement('img'); i.src=src; i.alt=''; i.loading='lazy'; d.appendChild(i); el.appendChild(d);
+        });
+      });
+      // 地図
+      document.querySelectorAll('[data-cms-map]').forEach(function(el){
+        var q = get(el.getAttribute('data-cms-map'), data);
+        if(typeof q === 'string' && q.trim() !== ''){
+          el.setAttribute('src', 'https://maps.google.com/maps?q=' + encodeURIComponent(q) + '&output=embed');
+        }
+      });
+      // 表示・非表示（メニュー各アイテム）
+      document.querySelectorAll('[data-cms-menu]').forEach(function(el){
+        var list = data.menu && data.menu.items;
+        var item = list ? list[el.getAttribute('data-cms-menu')] : null;
+        if(item && item.show === false) el.style.display = 'none';
+      });
+    })
+    .catch(function(){ /* 既定の内容のまま表示 */ });
+})();
+</script>
+</body>
+</html>

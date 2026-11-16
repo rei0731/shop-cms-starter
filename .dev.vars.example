@@ -1,0 +1,5 @@
+# ローカル開発用（wrangler pages dev）。.dev.vars にコピーして値を入れる。.dev.vars はコミットしない
+SESSION_SECRET=replace-with-a-random-string-of-40-chars-or-more
+PW_SALT=replace-with-a-random-salt
+# node scripts/hash-password.mjs <初期パスワード> <PW_SALT と同じ値> の出力
+ADMIN_PW_HASH=
